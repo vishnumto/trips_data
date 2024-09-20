@@ -1,0 +1,32 @@
+// Define the conversion function for duration
+    DEFINE function convert_duration_to_seconds(duration_str):
+        IF duration_str is None THEN RETURN None
+        SPLIT duration_str by ':'
+        IF length of parts is not 3 THEN RAISE ValueError
+        RETURN calculated seconds from parts
+
+    // Define unit testing function
+    DEFINE function test_apply_duration_conversion():
+        // Create test DataFrame with example duration values
+        CREATE test DataFrame df_test with example duration strings
+
+        // Specify columns to convert
+        DEFINE duration_columns
+
+        // Apply the duration conversion function
+        df_converted = apply_duration_conversion(df_test, duration_columns)
+
+        // Collect results to check the correctness
+        COLLECT results from df_converted
+
+        // Define expected results
+        DEFINE expected_results
+
+        // Check if results match expected values
+        FOR each result, expected in results and expected_results:
+            FOR each r, e in result and expected:
+                ASSERT r == e
+
+    // Run the unit test
+    CALL test_apply_duration_conversion()
+    PRINT "All tests passed!"
